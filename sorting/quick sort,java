@@ -1,0 +1,51 @@
+import java.util.Arrays;
+
+public class QuickSortExample {
+
+    // Main method to run the program
+    public static void main(String[] args) {
+        int[] array = {10, 7, 8, 9, 1, 5};
+        System.out.println("Unsorted Array: " + Arrays.toString(array));
+        
+        quickSort(array, 0, array.length - 1);
+        
+        System.out.println("Sorted Array:   " + Arrays.toString(array));
+    }
+
+    // Main Quick Sort method called recursively
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            // pi is the partitioning index; arr[pi] is now in the right place
+            int pi = partition(arr, low, high);
+
+            // Recursively sort elements before and after the partition
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+
+    // Partition method that places the pivot in the correct position
+    private static int partition(int[] arr, int low, int high) {
+        // Choosing the rightmost element as the pivot
+        int pivot = arr[high]; 
+        int i = (low - 1); // Index of the smaller element
+
+        for (int j = low; j < high; j++) {
+            // If the current element is smaller than or equal to the pivot
+            if (arr[j] <= pivot) {
+                i++;
+                // Swap arr[i] and arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        // Swap the pivot element with the element at i + 1
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1; // Return the partitioning index
+    }
+}
